@@ -3,7 +3,7 @@ version: "3.8"
 networks:
   default:
     external:
-      name: nginx_reverse_proxy_gateway
+      name: ${HOST_NETWORK}
 
 services:
   simplytodo-db:
