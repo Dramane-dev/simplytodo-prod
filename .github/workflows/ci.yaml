@@ -1,0 +1,52 @@
+name: simplytodo CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+
+    runs-on: {{matrix.os}}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macOs-latest]
+        node-version: [12.x, 14.x, 16.x]
+    
+    steps:
+    - uses ations/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: npm i
+    - run: npm ci
+    - run: npm run build --if-present
+
+    - name: Build and Push simplytodo front to Docker hub
+    uses: mr-smithers-excellent/docker-build-push@v5
+    with:
+      image: dramanedev/dramanedev-prod
+      tags: siplytodo-front
+      registry: docker.io
+      dockerfile: "../../simplytodo-front/Dockerfile"
+      username: ${{ secrets.DOCKER_USERNAME }}
+      password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Build and Push simplytodo api to Docker hub
+    uses: mr-smithers-excellent/docker-build-push@v5
+    with:
+      image: dramanedev/dramanedev-prod
+      tags: siplytodo-api
+      registry: docker.io
+      dockerfile: "../../simplytodo-api/Dockerfile"
+      username: ${{ secrets.DOCKER_USERNAME }}
+      password: ${{ secrets.DOCKER_PASSWORD }}
+  
+  publish:
+
+    needs: build

@@ -15,8 +15,6 @@ services:
       - "${MY_SQL_PORT}"
     ports:
       - "${MY_SQL_PORT}:${MY_SQL_PORT}"
-    networks:
-      - ${HOST_NETWORK}
     environment:
       MYSQL_DATABASE: ${MY_SQL_DATABASE}
       MYSQL_ALLOW_EMPTY_PASSWORD: ${MY_SQL_ALLOW_EMPTY_PASSWORD}
@@ -35,8 +33,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - "${SIMPLYTODO_PORT}:${SIMPLYTODO_PORT}"
-    networks:
-      - ${HOST_NETWORK}
   simplytodo-api:
     container_name: ${SIMPLYTODO_API}
     depends_on:
@@ -49,8 +45,6 @@ services:
     command: bash -c 'while !</dev/tcp/simplytodo-db/${MY_SQL_PORT}; do sleep 1; done; npm start'
     ports:
       - "${SIMPLYTODO_API_PORT}:${SIMPLYTODO_API_PORT}"
-    networks:
-      - ${HOST_NETWORK}
 volumes:
   mysql-data:
     driver: local
