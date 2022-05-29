@@ -46,7 +46,3 @@ jobs:
       dockerfile: "../../simplytodo-api/Dockerfile"
       username: ${{ secrets.DOCKER_USERNAME }}
       password: ${{ secrets.DOCKER_PASSWORD }}
-  
-  publish:
-
-    needs: build
