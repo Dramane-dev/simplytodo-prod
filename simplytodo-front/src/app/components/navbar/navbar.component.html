@@ -1,0 +1,25 @@
+<header class="navbar-container">
+    <div class="navbar">
+        <div class="logo-and-home-container" (click)="navigateTo('/home')">
+            <img class="tasks-logo" src="assets/images/tsks-logo.png" alt="tasks-logo" />
+            <div class="navbar-item home">{{ "Components.Navbar.Title" | translate }}</div>
+        </div>
+        <div class="spacer"></div>
+        <ng-container *ngIf="userIsLogged(); else notAuthenticated">
+            <div class="navbar-item-border" (click)="navigateTo('/dashboard')">
+                <div class="navbar-item signup">{{ "Components.Navbar.Dashboard" | translate }}</div>
+            </div>
+            <div class="navbar-item-border" (click)="signout()">
+                <div class="navbar-item signup">{{ "Components.Navbar.Signout" | translate }}</div>
+            </div>
+        </ng-container>
+        <ng-template #notAuthenticated>
+            <div class="navbar-item-border navbar-item-border-signin" (click)="navigateTo('/signin')">
+                <div class="navbar-item signin">{{ "Components.Navbar.Signin" | translate }}</div>
+            </div>
+            <div class="navbar-item-border" (click)="navigateTo('/signup')">
+                <div class="navbar-item signup">{{ "Components.Navbar.Signup" | translate }}</div>
+            </div>
+        </ng-template>
+    </div>
+</header>

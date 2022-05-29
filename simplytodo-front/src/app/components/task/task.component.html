@@ -1,0 +1,20 @@
+<div [id]="this.taskId" class="task">
+    <div class="top-card">
+        <div class="title">
+            {{ taskName }}
+        </div>
+        <div class="task-setting">
+            <mat-icon class="check-icon" aria-hidden="false" aria-label="Check icon" (click)="deleteTask(true)"
+                >remove_circle_outline</mat-icon
+            >
+        </div>
+    </div>
+    <div class="description">
+        {{ taskDescription }}
+    </div>
+    <div class="card-footer">
+        <div class="createdAt">
+            {{ taskCreatedAt }}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,199 @@
+<div class="dashboard-container">
+    <div class="projects-column-container">
+        <div class="projects-title-container">
+            <mat-icon class="assignment-icon" aria-hidden="false" aria-label="Assignment icon">assignment</mat-icon>
+            <h3>{{ "Pages.Dashboard.ProjectList.Title" | translate }}</h3>
+        </div>
+        <app-button [settingsButton]="true" (click)="navigateTo('settings')"></app-button>
+        <app-button
+            [newProjectButton]="true"
+            (click)="openPopup(undefined, '', '', '', '', false, false, false, true)"
+        ></app-button>
+        <ng-container *ngFor="let project of projects">
+            <app-button
+                [projectButton]="true"
+                [projectName]="project.name"
+                (click)="changeProject(project)"
+            ></app-button>
+        </ng-container>
+    </div>
+    <div class="todos-column-container">
+        <div class="project-title-container">
+            <mat-icon class="check-icon" aria-hidden="false" aria-label="Check icon">check</mat-icon>
+            <h1>{{ projectName }}</h1>
+        </div>
+        <div class="button-container">
+            <div class="buttons">
+                <div
+                    class="update-project-button"
+                    (click)="
+                        openPopup(
+                            undefined,
+                            '',
+                            '',
+                            '',
+                            '',
+                            false,
+                            false,
+                            false,
+                            false,
+                            true,
+                            projectName,
+                            projectDescription
+                        )
+                    "
+                >
+                    {{ "Pages.Dashboard.Buttons.Update" | translate }}
+                </div>
+                <div class="delete-project-button" (click)="deleteProject()">
+                    {{ "Pages.Dashboard.Buttons.Delete" | translate }}
+                </div>
+            </div>
+            <div class="user-informations-container-2">
+                <mat-icon class="how-to-reg-icon" aria-hidden="false" aria-label="Assignment icon">how_to_reg</mat-icon>
+                <p class="user-identity">{{ user.lastname + " " + user.firstname }}</p>
+            </div>
+        </div>
+        <div class="project-description-container">
+            <p>
+                {{ this.projectDescription }}
+            </p>
+        </div>
+        <div class="todos-list-container">
+            <div class="todo-list-wrapper">
+                <div class="todo-list-columns" cdkDropListGroup>
+                    <div class="todo-column">
+                        <div class="column-title">
+                            {{ "Pages.Dashboard.TodosList.TodoTitle" | translate }}
+                        </div>
+
+                        <div
+                            class="tasks-container"
+                            cdkDropList
+                            #todoList="cdkDropList"
+                            [cdkDropListData]="tasks"
+                            (cdkDropListDropped)="drop($event)"
+                        >
+                            <app-button
+                                [newTaskButton]="true"
+                                (click)="openPopup(undefined, '', '', 'todo', '', true, false)"
+                            ></app-button>
+                            <ng-container *ngFor="let task of tasks">
+                                <app-task
+                                    cdkDrag
+                                    [class.grab]="grab"
+                                    [class.grabbing]="grabbing"
+                                    mat-raised-button
+                                    [taskId]="task.id"
+                                    [taskName]="task.name"
+                                    [taskDescription]="task.description"
+                                    [taskCreatedAt]="task.created_at"
+                                    [projectId]="task.projectId"
+                                    (isDeletedButton)="setDeletedButton($event)"
+                                    (click)="
+                                        openPopup(
+                                            task.id,
+                                            task.name,
+                                            task.description,
+                                            task.status,
+                                            '',
+                                            false,
+                                            isDeletedButton ? false : true,
+                                            isDeletedButton
+                                        )
+                                    "
+                                ></app-task>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div class="doing-column">
+                        <div class="column-title">
+                            {{ "Pages.Dashboard.TodosList.DoingTitle" | translate }}
+                        </div>
+
+                        <div
+                            class="tasks-container"
+                            cdkDropList
+                            #todoList="cdkDropList"
+                            [cdkDropListData]="doing"
+                            (cdkDropListDropped)="drop($event)"
+                        >
+                            <app-button
+                                [newTaskButton]="true"
+                                (click)="openPopup(undefined, '', '', 'doing', '', true, false)"
+                            ></app-button>
+                            <ng-container *ngFor="let doingTask of doing">
+                                <app-task
+                                    cdkDrag
+                                    [class.grab]="grab"
+                                    [class.grabbing]="grabbing"
+                                    [taskId]="doingTask.id"
+                                    [taskName]="doingTask.name"
+                                    [taskDescription]="doingTask.description"
+                                    [taskCreatedAt]="doingTask.created_at"
+                                    [projectId]="doingTask.projectId"
+                                    (isDeletedButton)="setDeletedButton($event)"
+                                    (click)="
+                                        openPopup(
+                                            doingTask.id,
+                                            doingTask.name,
+                                            doingTask.description,
+                                            'doing',
+                                            '',
+                                            false,
+                                            isDeletedButton ? false : true,
+                                            isDeletedButton
+                                        )
+                                    "
+                                ></app-task>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div class="done-column">
+                        <div class="column-title">
+                            {{ "Pages.Dashboard.TodosList.DoneTitle" | translate }}
+                        </div>
+
+                        <div
+                            class="tasks-container"
+                            cdkDropList
+                            #todoList="cdkDropList"
+                            [cdkDropListData]="done"
+                            (cdkDropListDropped)="drop($event)"
+                        >
+                            <app-button
+                                [newTaskButton]="true"
+                                (click)="openPopup(undefined, '', '', 'done', '', true, false)"
+                            ></app-button>
+                            <ng-container *ngFor="let doneTask of done">
+                                <app-task
+                                    cdkDrag
+                                    [class.grab]="grab"
+                                    [class.grabbing]="grabbing"
+                                    [taskId]="doneTask.id"
+                                    [taskName]="doneTask.name"
+                                    [taskDescription]="doneTask.description"
+                                    [taskCreatedAt]="doneTask.created_at"
+                                    [projectId]="doneTask.projectId"
+                                    (isDeletedButton)="setDeletedButton($event)"
+                                    (click)="
+                                        openPopup(
+                                            doneTask.id,
+                                            doneTask.name,
+                                            doneTask.description,
+                                            'done',
+                                            '',
+                                            false,
+                                            isDeletedButton ? false : true,
+                                            isDeletedButton
+                                        )
+                                    "
+                                ></app-task>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="title-container">
+        <div class="sub-container-title">
+            <p class="title">{{ "Pages.ConfirmedMail.Title" | translate }}</p>
+            <p class="subTitle">{{ "Pages.ConfirmedMail.SubTitle" | translate }}</p>
+        </div>
+    </div>
+
+    <div class="form-container" [formGroup]="mailCodeVerificationForm">
+        <label>{{ "" | translate }}</label>
+        <input
+            formControlName="mailCodeVerification"
+            type="text"
+            placeholder="{{ 'Pages.ConfirmedMail.Placeholder' | translate }}"
+        />
+        <ng-container *ngIf="invalidCode">
+            <p [class.error-message]="invalidCode">
+                {{ "Pages.ConfirmedMail.FieldsErrors.IsInvalidCode" | translate }}
+            </p>
+        </ng-container>
+    </div>
+
+    <div class="button-container">
+        <app-button [simpleButton]="true" (click)="confirmedMail()"></app-button>
+    </div>
+</div>

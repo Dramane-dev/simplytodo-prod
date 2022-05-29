@@ -1,0 +1,36 @@
+<div class="container">
+    <ng-container *ngFor="let ball of balls">
+        <app-ball [topLeft]="ball.property === 'topLeft'" [topRight]="ball.property === 'topRight'"></app-ball>
+    </ng-container>
+    <div class="title-container">
+        <h1>{{ "Pages.Signin.Title" | translate }}</h1>
+    </div>
+    <div class="form-container">
+        <form class="form" [formGroup]="signinForm">
+            <input formControlName="email" type="email" [placeholder]="'Pages.Signin.Fields.Email' | translate" />
+            <input
+                formControlName="password"
+                type="password"
+                [placeholder]="'Pages.Signin.Fields.Password' | translate"
+            />
+            <ng-container *ngIf="isInvalidInformation">
+                <p [class.error-message]="isInvalidInformation">
+                    {{ "Pages.Signin.FieldsErrors.isInvalidInformation" | translate }}
+                </p>
+            </ng-container>
+            <div class="signin-button" (click)="signin()">
+                <p>{{ "Pages.Signin.Buttons.Signin" | translate }}</p>
+            </div>
+        </form>
+    </div>
+    <div class="not-account" (click)="navigateTo('/signup')">
+        <p>{{ "Pages.Signin.AlreadyAccount" | translate }}</p>
+        <div class="signup">
+            <p class="not-account-signup-button">{{ "Pages.Signin.Buttons.Signup" | translate }}</p>
+        </div>
+    </div>
+    <div class="back-to-home" (click)="navigateTo('/home')">
+        <mat-icon class="row" aria-hidden="false" aria-label="Row to back home">arrow_back</mat-icon>
+        <p>{{ "Pages.Signin.Buttons.BackToHome" | translate }}</p>
+    </div>
+</div>
