@@ -1,9 +1,8 @@
 version: "3.8"
 
 networks:
-  default:
-    external:
-      name: ${HOST_NETWORK}
+  ${HOST_NETWORK}:
+    external: true
 
 services:
   simplytodo-db:
