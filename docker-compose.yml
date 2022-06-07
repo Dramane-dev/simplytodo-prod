@@ -1,10 +1,9 @@
 version: "3.8"
 
 networks:
-  default:
-    nginx_reverse_proxy_gateway:
-      external: true
-      name: nginx_reverse_proxy_gateway
+  nginx_reverse_proxy_gateway:
+    external: true
+    name: nginx_reverse_proxy_gateway
 
 services:
   simplytodo-db:
@@ -23,6 +22,8 @@ services:
       MYSQL_USER: ${MY_SQL_USER}
       MYSQL_PASSWORD: ${MY_SQL_PASSWORD}
       MYSQL_ROOT_HOST: ${MY_SQL_ROOT_HOST}
+    networks:
+      - ${HOST_NETWORK}
     volumes:
       - mysql-data:/data/db
       - "./simplytodo-api/db/config.db.sql:/docker-entrypoint-initdb.d/config.db.sql"
@@ -32,6 +33,8 @@ services:
     build:
       context: ./simplytodo-front
       dockerfile: Dockerfile
+    networks:
+      - ${HOST_NETWORK}
     ports:
       - "${SIMPLYTODO_PORT}:${SIMPLYTODO_PORT}"
   simplytodo-api:
@@ -44,6 +47,8 @@ services:
       dockerfile: Dockerfile
     restart: always
     command: bash -c 'while !</dev/tcp/simplytodo-db/${MY_SQL_PORT}; do sleep 1; done; npm start'
+    networks:
+     - ${HOST_NETWORK}
     ports:
       - "${SIMPLYTODO_API_PORT}:${SIMPLYTODO_API_PORT}"
 volumes:
