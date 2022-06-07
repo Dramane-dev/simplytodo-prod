@@ -2,24 +2,27 @@
     <ng-container *ngFor="let ball of balls">
         <app-ball [topLeft]="ball.property === 'topLeft'" [topRight]="ball.property === 'topRight'"></app-ball>
     </ng-container>
-    <div class="title-container">
+    <div [ngClass]="handsetScreen ? 'title-container-handsetScreen' : 'title-container'">
         <h1>{{ "Pages.Signup.Title" | translate }}</h1>
     </div>
     <div class="form-container">
         <form class="form" [formGroup]="signupForm">
-            <input type="text" formControlName="lastname" [placeholder]="'Pages.Signup.Fields.Name' | translate" />
+            <input [ngClass]="handsetScreen ? 'input-handset-screen' : ''" type="text" formControlName="lastname" [placeholder]="'Pages.Signup.Fields.Name' | translate" />
             <input
+                [ngClass]="handsetScreen ? 'input-handset-screen' : ''"
                 type="text"
                 formControlName="firstname"
                 [placeholder]="'Pages.Signup.Fields.FirstName' | translate"
             />
-            <input type="email" formControlName="email" [placeholder]="'Pages.Signup.Fields.Email' | translate" />
+            <input [ngClass]="handsetScreen ? 'input-handset-screen' : ''" type="email" formControlName="email" [placeholder]="'Pages.Signup.Fields.Email' | translate" />
             <input
+                [ngClass]="handsetScreen ? 'input-handset-screen' : ''"
                 type="password"
                 formControlName="password"
                 [placeholder]="'Pages.Signup.Fields.Password' | translate"
             />
             <input
+                [ngClass]="handsetScreen ? 'input-handset-screen' : ''"
                 type="password"
                 formControlName="confirmedPassword"
                 [placeholder]="'Pages.Signup.Fields.ConfirmedPassword' | translate"
