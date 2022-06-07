@@ -1,9 +1,10 @@
 version: "3.8"
 
 networks:
-  nginx_reverse_proxy_gateway:
-    external: true
-    name: nginx_reverse_proxy_gateway
+  default:
+    nginx_reverse_proxy_gateway:
+      external: true
+      name: nginx_reverse_proxy_gateway
 
 services:
   simplytodo-db:
