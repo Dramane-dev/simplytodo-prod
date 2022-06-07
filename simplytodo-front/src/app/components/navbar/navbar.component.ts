@@ -54,12 +54,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }
 
     showMenu(): boolean {
-        console.log("show menu ", this.menuIsShow);
         return this.menuIsShow = true;
     }
 
     hideMenu(): boolean {
-        console.log("hide menu ", this.menuIsShow);
         return this.menuIsShow = false;
     }
 
