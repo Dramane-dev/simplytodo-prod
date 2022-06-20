@@ -7,10 +7,10 @@ import { getProjectByIdController } from "../../controllers/project/getProjectBy
 import { updateProjectController } from "../../controllers/project/updateProjectController";
 
 const projectRoutes: Router = express.Router();
-projectRoutes.get("/api/projects/:id", [verifyToken], getAllProjectsController);
-projectRoutes.get("/api/project/:id", [verifyToken], getProjectByIdController);
-projectRoutes.post("/api/project/:id", [verifyToken], createProjectController);
-projectRoutes.put("/api/project/:projectId", [verifyToken], updateProjectController);
-projectRoutes.delete("/api/project/:id", [verifyToken], deleteProjectController);
+projectRoutes.get("/projects/:id", [verifyToken], getAllProjectsController);
+projectRoutes.get("/project/:id", [verifyToken], getProjectByIdController);
+projectRoutes.post("/project/:id", [verifyToken], createProjectController);
+projectRoutes.put("/project/:projectId", [verifyToken], updateProjectController);
+projectRoutes.delete("/project/:id", [verifyToken], deleteProjectController);
 
 export { projectRoutes };

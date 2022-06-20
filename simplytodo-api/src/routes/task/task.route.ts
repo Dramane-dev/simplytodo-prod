@@ -7,10 +7,10 @@ import { updateTaskController } from "../../controllers/task/updateTaskControlle
 import { verifyToken } from "../../middlewares/verifyToken";
 
 const taskRoute: Router = express.Router();
-taskRoute.get("/api/tasks/:id", [verifyToken], getAllTasksController);
-taskRoute.get("/api/task/:id", [verifyToken], getTaskByIdController);
-taskRoute.post("/api/task/:projectId", [verifyToken], createTaskController);
-taskRoute.put("/api/task/:id", [verifyToken], updateTaskController);
-taskRoute.delete("/api/task/:id", [verifyToken], deleteTaskController);
+taskRoute.get("/tasks/:id", [verifyToken], getAllTasksController);
+taskRoute.get("/task/:id", [verifyToken], getTaskByIdController);
+taskRoute.post("/task/:projectId", [verifyToken], createTaskController);
+taskRoute.put("/task/:id", [verifyToken], updateTaskController);
+taskRoute.delete("/task/:id", [verifyToken], deleteTaskController);
 
 export { taskRoute };

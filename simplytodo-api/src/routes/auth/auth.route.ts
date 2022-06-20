@@ -9,13 +9,13 @@ import { verifyMailController } from "../../controllers/auth/verifyMailControlle
 import { isAuthenticatedController } from "../../controllers/auth/isAuthenticatedController";
 
 const authRoutes: Router = express.Router();
-authRoutes.post("/api/signup", SignupController);
-authRoutes.post("/api/verify-mail/:id", verifyMailController);
-authRoutes.post("/api/signin", SigninController);
-authRoutes.get("/api/user/:id", getUserByIdController);
-authRoutes.get("/api/users", getAllUsersController);
-authRoutes.put("/api/user/:id", updateUserInfoController);
-authRoutes.delete("/api/signout", SignoutController);
-authRoutes.get("/api/is-authenticated/:id", isAuthenticatedController);
+authRoutes.post("/signup", SignupController);
+authRoutes.post("/verify-mail/:id", verifyMailController);
+authRoutes.post("/signin", SigninController);
+authRoutes.get("/user/:id", getUserByIdController);
+authRoutes.get("/users", getAllUsersController);
+authRoutes.put("/user/:id", updateUserInfoController);
+authRoutes.delete("/signout", SignoutController);
+authRoutes.get("/is-authenticated/:id", isAuthenticatedController);
 
 export { authRoutes };
