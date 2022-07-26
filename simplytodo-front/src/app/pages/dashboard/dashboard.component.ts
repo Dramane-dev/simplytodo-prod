@@ -24,6 +24,7 @@ export class DashboardComponent implements OnInit {
     public projectName: string = '';
     public projectDescription: string = '';
     public isDeletedButton: boolean = false;
+    public userHasProjects: boolean = false;
     public user: TUser = {} as TUser;
     @Input() grab: boolean = true;
     @Input() grabbing: boolean = false;
@@ -52,17 +53,22 @@ export class DashboardComponent implements OnInit {
             .getAllProjects(String(this.user.userId), this.user.accessToken)
             .then((res) => {
                 const { message, result } = res.data;
-                this.tasks = [];
-                this.doing = [];
-                this.done = [];
-                this.projects = result;
-                this.projectId = this.projects[0].projectId as number;
-                this.projectName = this.projects[0].name;
-                this.projectDescription = this.projects[0].description;
+                
+                if (result.length > 0) {
+                    this.tasks = [];
+                    this.doing = [];
+                    this.done = [];
+                    this.projects = result;
+                    this.projectId = this.projects[0].projectId as number;
+                    this.projectName = this.projects[0].name;
+                    this.projectDescription = this.projects[0].description;
+                    this.userHasProjects = true;
+                }
                 return this.projects;
             })
             .then((projects) => {
-                projects
+                if (this.projects.length > 0) {
+                    projects
                     .filter((project: IProject) => project.projectId === this.projectId)
                     .map((project: IProject) => {
                         project.tasks?.map((task: ITask) => {
@@ -82,6 +88,7 @@ export class DashboardComponent implements OnInit {
                             }
                         });
                     });
+                }
             })
             .catch((error) => {
                 console.log(error);

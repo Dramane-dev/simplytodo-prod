@@ -56,7 +56,7 @@ import { CustomTranslateLoader } from './translate/customTranslateLoader';
         DragDropModule,
         MatDialogModule,
         FormsModule,
-        ReactiveFormsModule,
+        ReactiveFormsModule
     ],
     providers: [],
     bootstrap: [AppComponent],

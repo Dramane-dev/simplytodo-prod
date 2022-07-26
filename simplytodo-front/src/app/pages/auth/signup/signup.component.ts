@@ -78,6 +78,7 @@ export class SignupComponent implements OnInit, OnDestroy {
                 .signup(lastname.value, firstname.value, email.value, password.value, confirmedPassword.value)
                 .then((res) => {
                     let user: TUser = res;
+                    user.accessToken = "";
                     this.saveUserDatasInStorage('userInformations', user);
                     this.navigateTo('confirmed-mail/' + user.userId);
                 })
