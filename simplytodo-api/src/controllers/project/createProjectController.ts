@@ -1,8 +1,11 @@
 import { Request, Response } from "express";
+import { idKeys } from "../../exports/idKeys";
+import { generateId } from "../../functions/generateId";
 import { Project } from "../../models/Project.model";
 
 export const createProjectController = (req: Request, res: Response) => {
     Project.create({
+        projectId: generateId(idKeys[1]),
         name: req.body.name,
         description: req.body.description,
         userId: req.params.id,

@@ -6,9 +6,8 @@ const Task = db.define(
     "task",
     {
         id: {
-            type: DataTypes.UUID,
+            type: DataTypes.STRING,
             primaryKey: true,
-            autoIncrement: true,
             allowNull: false,
         },
         name: {
@@ -25,7 +24,7 @@ const Task = db.define(
             type: DataTypes.STRING,
         },
         projectId: {
-            type: DataTypes.UUID,
+            type: DataTypes.STRING,
             references: {
                 model: Project,
                 key: "projectId",

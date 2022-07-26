@@ -5,12 +5,15 @@ import { passwordConfirmed } from "../../functions/auth/passwordConfirmed";
 import { IUser } from "../../interfaces/user.interface";
 import { sendMailVerificationCode } from "../../functions/auth/sendMailVerificationCode";
 import { generateMailVerificationCode } from "../../functions/auth/generateMailVerificationCode";
+import { generateId } from "../../functions/generateId";
+import { idKeys } from "../../exports/idKeys";
 
 export const SignupController = (req: Request, res: Response) => {
     let isSamePassword: boolean = passwordConfirmed(req.body.password, req.body.confirmedPassword);
 
     if (isSamePassword) {
         User.create({
+            userId: generateId(idKeys[0]),
             lastname: req.body.lastname.toLowerCase(),
             firstname: req.body.firstname.toLowerCase(),
             email: req.body.email.toLowerCase(),
@@ -42,9 +45,9 @@ export const SignupController = (req: Request, res: Response) => {
                             user: user,
                         });
                     })
-                    .catch((error) => {
+                    .catch(() => {
                         res.status(500).send({
-                            message: error.message,
+                            message: "User not registred...❌ Please, retry later !",
                         });
                     });
             })

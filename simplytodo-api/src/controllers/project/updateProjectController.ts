@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { Project } from "../../models/Project.model";
 interface Project {
-    projectId: number;
+    projectId: string;
     name: string;
     description: string;
     userId: number;

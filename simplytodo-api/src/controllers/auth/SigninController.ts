@@ -33,17 +33,25 @@ export const SigninController = (req: Request, res: Response) => {
             let isAuthenticated: boolean = true;
 
             userIsAuthenticated(isAuthenticated, userId)
-                .then((response) => {
-                    return res.status(200).send({
-                        message: "User connected successfuly ✅!",
-                        user: {
-                            name: user?.getDataValue("name"),
-                            email: user?.getDataValue("email"),
-                            isAuthenticated: user.getDataValue("isAuthenticated"),
-                            accessToken: token,
-                            refreshToken: refreshToken,
-                        },
-                    });
+                .then(() => {
+                    User.findByPk(userId)
+                     .then((usr) => {
+                        return res.status(200).send({
+                            message: "User connected successfuly ✅!",
+                            user: {
+                                name: usr?.getDataValue("name"),
+                                email: usr?.getDataValue("email"),
+                                isAuthenticated: usr?.getDataValue("isAuthenticated"),
+                                accessToken: token,
+                                refreshToken: refreshToken,
+                            },
+                        });
+                     })
+                     .catch((error) => {
+                        return res.status(404).send({
+                            message: "User not found... ⚠️",
+                        });
+                     });
                 })
                 .catch((error) => {
                     return res.status(200).send({

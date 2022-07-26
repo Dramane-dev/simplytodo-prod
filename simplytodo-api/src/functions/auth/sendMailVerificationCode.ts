@@ -1,28 +1,18 @@
-import nodemailer, { SentMessageInfo } from "nodemailer";
-import Mail from "nodemailer/lib/mailer";
+import sendGridApi from "@sendgrid/mail";
 import { IMailResponse } from "../../interfaces/mailResponse.interface";
 import { IUser } from "../../interfaces/user.interface";
+import { htmlTemplate } from "../../exports/htmlTemplate";
+import { User } from "../../models/User.model";
 
 export const sendMailVerificationCode = (user: IUser): Promise<boolean | string> => {
     return new Promise(async (resolve, reject) => {
         try {
-            let transport: Mail<SentMessageInfo> = nodemailer.createTransport({
-                host: process.env.MAIL_HOST,
-                port: parseInt(String(process.env.MAIL_PORT)),
-                secure: false,
-                auth: {
-                    user: process.env.MAIL_ADDRESS,
-                    pass: process.env.MAIL_PASSWORD,
-                },
-                tls: {
-                    ciphers: process.env.MAIL_TLS,
-                },
-            });
+            sendGridApi.setApiKey(String(process.env.SEND_GRID_API_KEY));
 
-            let message: IMailResponse = await transport.sendMail({
-                from: process.env.MAIL_ADDRESS,
+            let message: sendGridApi.MailDataRequired = {
+                from: String(process.env.MAIL_ADDRESS_SEND_GRID),
                 to: user.email,
-                subject: process.env.MAIL_SUBJECT + " ✅",
+                subject: String(process.env.MAIL_SUBJECT) + " ✅",
                 text: `
                     Bonjour ${user.firstname} 👋, \n 
                     
@@ -32,17 +22,29 @@ export const sendMailVerificationCode = (user: IUser): Promise<boolean | string>
         
                     Simply Todo
                 `,
-            });
+                html: htmlTemplate
+                 .replace("user.firstname", user.firstname)
+                 .replace("user.mailVerificationCode", user.mailVerificationCode)
+            };
+            let mailSent = await sendGridApi.send(message);
+            let status = mailSent[0].statusCode;
 
-            let status = message.response.split(" ")[2];
-
-            if (status === "OK") {
+            if (status === 202) {
                 resolve(true);
             }
-
-            reject(false);
         } catch (error: any) {
-            reject(error.message);
+            console.log(error);
+            User.destroy({
+                where: {
+                    userId: user.userId
+                }
+            })
+             .then(() => {
+                reject(false);
+             })
+             .catch(() => {
+                reject(false);
+             });
         }
     });
 };

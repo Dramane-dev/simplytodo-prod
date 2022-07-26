@@ -7,8 +7,7 @@ const Project = db.define(
     "project",
     {
         projectId: {
-            type: DataTypes.UUID,
-            autoIncrement: true,
+            type: DataTypes.STRING,
             allowNull: false,
             primaryKey: true,
         },
@@ -21,7 +20,7 @@ const Project = db.define(
             allowNull: false,
         },
         userId: {
-            type: DataTypes.UUID,
+            type: DataTypes.STRING,
             references: {
                 model: User,
                 key: "userId",

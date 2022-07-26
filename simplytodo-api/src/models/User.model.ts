@@ -4,9 +4,8 @@ import { Project } from "./Project.model";
 
 export const User = db.define("user", {
     userId: {
-        type: DataTypes.UUID,
+        type: DataTypes.STRING,
         primaryKey: true,
-        autoIncrement: true,
         allowNull: false,
     },
     lastname: {

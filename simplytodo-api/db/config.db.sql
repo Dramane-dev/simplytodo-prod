@@ -1,10 +1,10 @@
-DROP DATABASE IF EXISTS todolist;
-CREATE DATABASE IF NOT EXISTS todolist;
+DROP DATABASE IF EXISTS simplytodo;
+CREATE DATABASE IF NOT EXISTS simplytodo;
 
-USE todolist;
+USE simplytodo;
 
 CREATE TABLE users(
-    userId INT NOT NULL AUTO_INCREMENT,
+    userId VARCHAR(16) NOT NULL,
     lastname VARCHAR(100) NOT NULL,
     firstname VARCHAR(100) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
@@ -17,21 +17,21 @@ CREATE TABLE users(
 );
 
 CREATE TABLE project(
-    projectId INT NOT NULL AUTO_INCREMENT,
+    projectId VARCHAR(16) NOT NULL,
     name VARCHAR(255) NOT NULL,
     description VARCHAR(255),
-    userId INT,
+    userId VARCHAR(16),
     PRIMARY KEY(projectId),
     FOREIGN KEY(userId) REFERENCES users(userId) ON DELETE CASCADE
 );
 
 CREATE TABLE task(
-    id INT NOT NULL AUTO_INCREMENT,
+    id VARCHAR(16) NOT NULL,
     name VARCHAR(255) NOT NULL,
     description VARCHAR(255),
     status VARCHAR(20) DEFAULT "todo",
     created_at VARCHAR(255),
-    projectId INT,
+    projectId VARCHAR(16),
     PRIMARY KEY(id),
     FOREIGN KEY(projectId) REFERENCES project(projectId) ON DELETE CASCADE
 );

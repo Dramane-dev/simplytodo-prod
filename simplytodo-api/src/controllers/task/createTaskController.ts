@@ -1,9 +1,12 @@
 import { Request, Response } from "express";
 import { Task } from "../../models/Task.model";
 import moment from "moment";
+import { generateId } from "../../functions/generateId";
+import { idKeys } from "../../exports/idKeys";
 
 export const createTaskController = (req: Request, res: Response) => {
     Task.create({
+        id: generateId(idKeys[2]),
         name: req.body.name,
         description: req.body.description,
         status: req.body.status ? req.body.status : "todo",
