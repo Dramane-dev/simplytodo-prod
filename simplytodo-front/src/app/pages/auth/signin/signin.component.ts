@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Subscription } from 'rxjs';
+import { NotifierService } from 'angular-notifier';
 
 interface Ball {
     property: string;
@@ -41,7 +42,8 @@ export class SigninComponent implements OnInit, OnDestroy {
         private _router: Router, 
         private _authService: AuthService, 
         private _storageService: StorageService,
-        private _responsive: BreakpointObserver
+        private _responsive: BreakpointObserver,
+        private _notificationService: NotifierService
     ) {}
 
     ngOnInit(): void {
@@ -62,7 +64,7 @@ export class SigninComponent implements OnInit, OnDestroy {
                 email: email,
                 password: password,
             };
-            this.navigateTo('dashboard');
+
              this._authService
                  .signin(userCredentials)
                  .then(async (res) => {
@@ -75,15 +77,18 @@ export class SigninComponent implements OnInit, OnDestroy {
                      let actualUserStringified: string = JSON.stringify(actualUser);
                      this._storageService
                          .updateFromLocalStorage('userInformations', actualUserStringified)
-                         .then((res) => {
-                             this.navigateTo('dashboard');
+                         .then(() => {
+                             this._notificationService.notify("success", res.message);
+                             setTimeout(() => {
+                                this.navigateTo('dashboard');
+                             }, 2500);
                          });
                  })
                  .catch((error) => {
-                     this.isInvalidInformation = true;
+                     this._notificationService.notify("error", error);
                  });
         } else {
-            this.isInvalidInformation = true;
+            this._notificationService.notify("error", "Email ou mot de passe incorrect");
         }
     }
 

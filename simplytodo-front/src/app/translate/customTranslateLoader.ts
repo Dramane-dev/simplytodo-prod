@@ -3,6 +3,11 @@ import { Observable, of } from 'rxjs';
 import { fr } from './fr';
 export class CustomTranslateLoader implements TranslateLoader {
     getTranslation(lang: string): Observable<Object> {
-        return of(fr);
+        switch(true) {
+            case lang === "fr":
+                return of(fr);
+            default:
+                return of(fr);
+        }
     }
 }

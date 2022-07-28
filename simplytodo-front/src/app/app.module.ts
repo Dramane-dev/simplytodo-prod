@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NotifierModule } from 'angular-notifier';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -56,7 +57,20 @@ import { CustomTranslateLoader } from './translate/customTranslateLoader';
         DragDropModule,
         MatDialogModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        NotifierModule.withConfig({
+            behaviour: {
+                autoHide: 2500
+            },
+            position: {
+                horizontal: {
+                    position: "middle"
+                },
+                vertical: {
+                    position: "top"
+                }
+            }
+        })
     ],
     providers: [],
     bootstrap: [AppComponent],

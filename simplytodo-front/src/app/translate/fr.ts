@@ -52,7 +52,14 @@ export const fr: any = {
                     "ProjectDescription": "Description du projet"
                 },
                 "Buttons": {
-                    "Create": "Mettre à jour",
+                    "Update": "Mettre à jour",
+                    "Cancel": "Annuler"
+                }
+            },
+            "DeleteProject": {
+                "Title": "Voulez-vous vraiment supprimer le projet ?",
+                "Buttons": {
+                    "Delete": "Supprimer",
                     "Cancel": "Annuler"
                 }
             },

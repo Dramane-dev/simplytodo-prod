@@ -7,6 +7,7 @@ import { TUser } from 'src/app/types/TUser';
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Subscription } from 'rxjs';
+import { NotifierService } from 'angular-notifier';
 
 @Component({
     selector: 'app-signup',
@@ -47,7 +48,8 @@ export class SignupComponent implements OnInit, OnDestroy {
         private _router: Router, 
         private _authService: AuthService, 
         private _storageService: StorageService,
-        private _responsive: BreakpointObserver
+        private _responsive: BreakpointObserver,
+        private _notificationService: NotifierService
     ) {}
 
     ngOnInit(): void {
@@ -80,16 +82,18 @@ export class SignupComponent implements OnInit, OnDestroy {
                     let user: TUser = res;
                     user.accessToken = "";
                     this.saveUserDatasInStorage('userInformations', user);
-                    this.navigateTo('confirmed-mail/' + user.userId);
+                    this._notificationService.notify("success", "Votre compte a bien été créer ! Un email vous a été envoyé.");
+                    setTimeout(() => {
+                        this.navigateTo('confirmed-mail/' + user.userId);
+                    }, 2500);
                 })
                 .catch((error) => {
                     if (error.includes('email must be unique')) {
-                        this.emailMustBeUnique = true;
+                        this._notificationService.notify("error", "Un compte ayant cette adresse mail existe déjà !");
                     }
-                    console.log(error);
                 });
         } else {
-            this.allFieldsAreRequired = true;
+            this._notificationService.notify("error", "Tous les champs sont requis !");
         }
     }
 
