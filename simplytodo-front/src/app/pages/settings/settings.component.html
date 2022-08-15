@@ -3,7 +3,7 @@
 </ng-container>
 <div class="container">
     <div class="banner-container"></div>
-    <div class="profile-container">
+    <div [ngClass]="mobilePhoneMode ? 'mobile-phone-mode-profile-container' : 'profile-container'">
         <div class="user-pixe" (click)="fileUpload.click()">
             <img class="user-profile-img" [src]="fileUrl" alt="user image" />
         </div>
@@ -19,34 +19,34 @@
     </div>
     <div class="update-profile-container">
         <div class="fields-container">
-            <div class="input-container">
+            <div [ngClass]="mobilePhoneMode ? 'mobile-phone-mode-input-container' : 'input-container'">
                 <label>{{ "Pages.Settings.FieldsSection.UserLastName" | translate }}</label>
                 <input type="text" [value]="currentUser?.lastname" />
             </div>
             <div class="separator"></div>
-            <div class="input-container">
+            <div [ngClass]="mobilePhoneMode ? 'mobile-phone-mode-input-container' : 'input-container'">
                 <label>{{ "Pages.Settings.FieldsSection.UserFirstName" | translate }}</label>
                 <input type="text" [value]="currentUser?.firstname" />
             </div>
             <div class="separator"></div>
-            <div class="input-container">
+            <div [ngClass]="mobilePhoneMode ? 'mobile-phone-mode-input-container' : 'input-container'">
                 <label>{{ "Pages.Settings.FieldsSection.Email" | translate }}</label>
                 <input type="text" [value]="currentUser?.email" />
             </div>
             <div class="separator"></div>
-            <div class="input-container">
+            <div [ngClass]="mobilePhoneMode ? 'mobile-phone-mode-input-container' : 'input-container'">
                 <label>{{ "Pages.Settings.FieldsSection.Password" | translate }}</label>
                 <input type="password" [value]="currentUser?.password" />
             </div>
             <div class="separator"></div>
             <div class="separator"></div>
-            <div class="input-container">
+            <div [ngClass]="mobilePhoneMode ? 'mobile-phone-mode-input-container' : 'input-container'">
                 <label>{{ "Pages.Settings.FieldsSection.Bio" | translate }}</label>
                 <textarea [value]="currentUser?.bio ? currentUser?.bio : ''"></textarea>
             </div>
             <div class="separator"></div>
         </div>
-        <div class="buttons-container">
+        <div [ngClass]="mobilePhoneMode ? 'mobile-phone-mode-buttons-container' : 'buttons-container'">
             <div class="save-button">{{ "Pages.Settings.Buttons.Save" | translate }}</div>
             <div class="cancel-button">{{ "Pages.Settings.Buttons.Cancel" | translate }}</div>
         </div>

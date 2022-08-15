@@ -134,6 +134,12 @@ export const fr: any = {
             "Buttons": {
                 "Update": "Mettre à jour le projet",
                 "Delete": "Supprimer le projet"
+            },
+            "NoProjects": {
+                "Title": "Vous n'avez pas encore créer de projet.",
+                "Buttons": {
+                    "Create": "Créer un projet !"
+                }
             }
         },
         "Settings": {

@@ -52,6 +52,8 @@ export class SigninComponent implements OnInit, OnDestroy {
             .subscribe(result => {
                 if (result.matches) {
                     this.handsetScreen = true;
+                } else {
+                    this.handsetScreen = false;
                 }
             })
         )

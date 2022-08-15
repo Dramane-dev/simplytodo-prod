@@ -11,6 +11,8 @@ import { ITask } from '../../interfaces/ITask';
 import { ITaskPopup } from 'src/app/interfaces/ITaskPopup';
 import { TaskService } from 'src/app/services/task/task.service';
 import { NotifierService } from 'angular-notifier';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+
 @Component({
     selector: 'app-dashboard',
     templateUrl: './dashboard.component.html',
@@ -73,6 +75,7 @@ export class DashboardComponent implements OnInit {
                     this.projectId = 0;
                     this.projectName = '';
                     this.projectDescription = '';
+                    this.userHasProjects = false;
                 }
 
                 return this.projects;
@@ -339,7 +342,6 @@ export class DashboardComponent implements OnInit {
 
         popupRef.afterClosed().subscribe((result) => {
             this.getAllProjects();
-            console.log(this.projects.length);
         });
     }
 

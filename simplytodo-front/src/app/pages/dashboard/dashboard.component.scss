@@ -159,3 +159,29 @@
         cursor: grabbing;
     }
 }
+
+.no-projects-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5%;
+
+    .no-project-title {
+        display: flex;
+        color: var(--white);
+        font-weight: 600;
+        font-size: 30px;
+    }
+    
+    .update-project-button {
+        padding: 1%;
+        text-align: center;
+        cursor: pointer;
+        background-color: var(--caramel-pastel);
+        border-radius: 5px;
+        font-weight: 600;
+        color: var(--dark-body-color);
+        margin: 5%;
+    }
+}

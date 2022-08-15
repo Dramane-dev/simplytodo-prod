@@ -1,20 +1,39 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TUser } from 'src/app/types/TUser';
 import { StorageService } from 'src/app/services/storage/storage.service';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-settings',
     templateUrl: './settings.component.html',
     styleUrls: ['./settings.component.scss'],
 })
-export class SettingsComponent implements OnInit {
+export class SettingsComponent implements OnInit, OnDestroy {
     public fileUrl: string = '../../../assets/images/user-image.png';
     public currentUser: TUser | null = null;
+    public subscriptions: Subscription = new Subscription();
+    public mobilePhoneMode: boolean = false;
 
-    constructor(private _storageService: StorageService) {}
+    constructor(
+        private _storageService: StorageService,
+        private _responsive: BreakpointObserver
+    ) {}
 
     ngOnInit(): void {
         let userHaveAnImage: boolean = this.checkUserImage();
+
+        this.subscriptions.add(
+            this._responsive.observe([Breakpoints.Small, Breakpoints.XSmall])
+             .subscribe(result => {
+                 if (result.matches) {
+                    this.mobilePhoneMode = true;
+                } else {
+                    this.mobilePhoneMode = false;
+                }
+             })
+        );
+
         if (userHaveAnImage) {
             this.getUserImageFromStorage()
                 .then((imageUrl) => {
@@ -64,5 +83,9 @@ export class SettingsComponent implements OnInit {
 
     resetUserImage(): void {
         this.fileUrl = '../../../assets/images/user-image.png';
+    }
+
+    ngOnDestroy(): void {
+        this.subscriptions.unsubscribe();
     }
 }
