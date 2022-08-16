@@ -3,7 +3,7 @@ import { User } from "../../models/User.model";
 import { updatePassword } from "../../functions/auth/updatePassword";
 
 export const updateUserInfoController = async (req: Request, res: Response) => {
-    let userId: string = req.params.id;
+    let userId: string = req.params.userId;
     let userPassword: string = await User.findByPk(userId).then((res) => res?.getDataValue("password"));
 
     User.update(
