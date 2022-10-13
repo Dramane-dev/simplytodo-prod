@@ -70,13 +70,24 @@ export class SigninComponent implements OnInit, OnDestroy {
              this._authService
                  .signin(userCredentials)
                  .then(async (res) => {
-                     const { accessToken, isAuthenticated } = res.user;
+                     const { 
+                        userId,
+                        lastname,
+                        firstname,
+                        accessToken, 
+                        isAuthenticated 
+                    } = res.user;
                      let actualUser: TUser = JSON.parse(
                          await this._storageService.getFromLocalStorage('userInformations')
                      );
+                     actualUser.userId = userId;
+                     actualUser.lastname = lastname;
+                     actualUser.firstname = firstname;
+                     actualUser.email = res.user.email;
                      actualUser.accessToken = accessToken;
                      actualUser.isAuthenticated = isAuthenticated;
                      let actualUserStringified: string = JSON.stringify(actualUser);
+                     
                      this._storageService
                          .updateFromLocalStorage('userInformations', actualUserStringified)
                          .then(() => {

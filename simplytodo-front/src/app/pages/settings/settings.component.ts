@@ -1,8 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { TUser } from 'src/app/types/TUser';
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Subscription } from 'rxjs';
+import { NotifierService } from 'angular-notifier';
 
 @Component({
     selector: 'app-settings',
@@ -14,10 +16,25 @@ export class SettingsComponent implements OnInit, OnDestroy {
     public currentUser: TUser | null = null;
     public subscriptions: Subscription = new Subscription();
     public mobilePhoneMode: boolean = false;
+    public userInformationsForm: FormGroup = new FormGroup({
+        lastname: new FormControl(""),
+        firstname: new FormControl(""),
+        email: new FormControl(
+            "",
+            Validators.compose([Validators.required, Validators.email])
+        ),
+        password: new FormControl(
+            "",
+            Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(16)])
+        ),
+        confirmedPassword: new FormControl("", Validators.required),
+        bio: new FormControl("")
+    });
 
     constructor(
         private _storageService: StorageService,
-        private _responsive: BreakpointObserver
+        private _responsive: BreakpointObserver,
+        private _notifierService: NotifierService
     ) {}
 
     ngOnInit(): void {
@@ -83,6 +100,15 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
     resetUserImage(): void {
         this.fileUrl = '../../../assets/images/user-image.png';
+    }
+
+    updateUserInformations(): void {
+        if (this.userInformationsForm.valid) {
+
+        } else {
+            this._notifierService.notify("error", "Une information semble être manquante...");
+        }
+        console.log("update user informations");
     }
 
     ngOnDestroy(): void {

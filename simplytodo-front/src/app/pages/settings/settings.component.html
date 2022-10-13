@@ -5,7 +5,7 @@
     <div class="banner-container"></div>
     <div [ngClass]="mobilePhoneMode ? 'mobile-phone-mode-profile-container' : 'profile-container'">
         <div class="user-pixe" (click)="fileUpload.click()">
-            <img class="user-profile-img" [src]="fileUrl" alt="user image" />
+            <img class="user-profile-img" [src]="fileUrl.toString()" alt="user image" />
         </div>
         <div class="profile-content">
             <div class="profile-title">{{ "Pages.Settings.ProfileHeaderSection.Title" | translate }}</div>
@@ -18,36 +18,40 @@
         </div>
     </div>
     <div class="update-profile-container">
-        <div class="fields-container">
+        <div class="fields-container" [formGroup]="userInformationsForm">
             <div [ngClass]="mobilePhoneMode ? 'mobile-phone-mode-input-container' : 'input-container'">
                 <label>{{ "Pages.Settings.FieldsSection.UserLastName" | translate }}</label>
-                <input type="text" [value]="currentUser?.lastname" />
+                <input type="text" [value]="currentUser?.lastname" formControlName="lastname" />
             </div>
             <div class="separator"></div>
             <div [ngClass]="mobilePhoneMode ? 'mobile-phone-mode-input-container' : 'input-container'">
                 <label>{{ "Pages.Settings.FieldsSection.UserFirstName" | translate }}</label>
-                <input type="text" [value]="currentUser?.firstname" />
+                <input type="text" [value]="currentUser?.firstname" formControlName="firstname" />
             </div>
             <div class="separator"></div>
             <div [ngClass]="mobilePhoneMode ? 'mobile-phone-mode-input-container' : 'input-container'">
                 <label>{{ "Pages.Settings.FieldsSection.Email" | translate }}</label>
-                <input type="text" [value]="currentUser?.email" />
+                <input type="text" [value]="currentUser?.email" formControlName="email" />
             </div>
             <div class="separator"></div>
             <div [ngClass]="mobilePhoneMode ? 'mobile-phone-mode-input-container' : 'input-container'">
                 <label>{{ "Pages.Settings.FieldsSection.Password" | translate }}</label>
-                <input type="password" [value]="currentUser?.password" />
+                <input type="password" [value]="currentUser?.password" formControlName="password" />
+            </div>
+            <div [ngClass]="mobilePhoneMode ? 'mobile-phone-mode-input-container' : 'input-container'">
+                <label>{{ "Pages.Settings.FieldsSection.ConfirmedPassword" | translate }}</label>
+                <input type="password" formControlName="confirmedPassword" />
             </div>
             <div class="separator"></div>
             <div class="separator"></div>
             <div [ngClass]="mobilePhoneMode ? 'mobile-phone-mode-input-container' : 'input-container'">
                 <label>{{ "Pages.Settings.FieldsSection.Bio" | translate }}</label>
-                <textarea [value]="currentUser?.bio ? currentUser?.bio : ''"></textarea>
+                <textarea [value]="currentUser?.bio ? currentUser?.bio : ''" formControlName="bio" ></textarea>
             </div>
             <div class="separator"></div>
         </div>
         <div [ngClass]="mobilePhoneMode ? 'mobile-phone-mode-buttons-container' : 'buttons-container'">
-            <div class="save-button">{{ "Pages.Settings.Buttons.Save" | translate }}</div>
+            <div class="save-button" (click)="updateUserInformations">{{ "Pages.Settings.Buttons.Save" | translate }}</div>
             <div class="cancel-button">{{ "Pages.Settings.Buttons.Cancel" | translate }}</div>
         </div>
     </div>

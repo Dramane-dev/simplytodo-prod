@@ -39,7 +39,9 @@ export const SigninController = (req: Request, res: Response) => {
                         return res.status(200).send({
                             message: "User connected successfuly ✅!",
                             user: {
-                                name: usr?.getDataValue("name"),
+                                userId: usr?.getDataValue("userId"),
+                                lastname: usr?.getDataValue("lastname"),
+                                firstname: usr?.getDataValue("firstname"),
                                 email: usr?.getDataValue("email"),
                                 isAuthenticated: usr?.getDataValue("isAuthenticated"),
                                 accessToken: token,
