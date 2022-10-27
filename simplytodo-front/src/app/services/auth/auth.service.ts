@@ -61,6 +61,7 @@ export class AuthService {
                 .then((res) => {
                     const { message } = res.data;
                     if (message.includes('User connected successfuly')) {
+                        res.data.message = "Connexion réussi ✅ !"
                         resolve(res.data);
                     }
                 })
