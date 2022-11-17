@@ -1,6 +1,6 @@
 # [ SIMPLY TODO ]
 
-![alt text](https://github.com/Dramane-dev/simplytodo-prod/blob/prod/app-screens/home.png?raw=true)
+![alt text](https://github.com/Dramane-dev/simplytodo-prod/blob/master/app-screens/home.png?raw=true)
 ![alt text](https://github.com/Dramane-dev/simplytodo-prod/blob/prod/app-screens/signup.png?raw=true)
 ![alt text](https://github.com/Dramane-dev/simplytodo-prod/blob/prod/app-screens/signin.png?raw=true)
 ![alt text](https://github.com/Dramane-dev/simplytodo-prod/blob/prod/app-screens/no-project.png?raw=true)
