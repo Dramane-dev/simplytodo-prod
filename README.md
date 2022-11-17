@@ -7,7 +7,7 @@
 ![alt text](https://github.com/Dramane-dev/simplytodo-prod/blob/master/app-screens/new-project.png?raw=true)
 ![alt text](https://github.com/Dramane-dev/simplytodo-prod/blob/master/app-screens/board.jpg?raw=true)
 
-## Link of project :
+## Link of deployed project :
 [Simply Todo](https://dramane.dev/simplytodo)
 
 ## To start the project :
