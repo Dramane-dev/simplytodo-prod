@@ -1,11 +1,11 @@
 # [ SIMPLY TODO ]
 
 ![alt text](https://github.com/Dramane-dev/simplytodo-prod/blob/master/app-screens/home.png?raw=true)
-![alt text](https://github.com/Dramane-dev/simplytodo-prod/blob/prod/app-screens/signup.png?raw=true)
-![alt text](https://github.com/Dramane-dev/simplytodo-prod/blob/prod/app-screens/signin.png?raw=true)
-![alt text](https://github.com/Dramane-dev/simplytodo-prod/blob/prod/app-screens/no-project.png?raw=true)
-![alt text](https://github.com/Dramane-dev/simplytodo-prod/blob/prod/app-screens/new-project.png?raw=true)
-![alt text](https://github.com/Dramane-dev/simplytodo-prod/blob/prod/app-screens/board.jpg?raw=true)
+![alt text](https://github.com/Dramane-dev/simplytodo-prod/blob/master/app-screens/signup.png?raw=true)
+![alt text](https://github.com/Dramane-dev/simplytodo-prod/blob/master/app-screens/signin.png?raw=true)
+![alt text](https://github.com/Dramane-dev/simplytodo-prod/blob/master/app-screens/no-project.png?raw=true)
+![alt text](https://github.com/Dramane-dev/simplytodo-prod/blob/master/app-screens/new-project.png?raw=true)
+![alt text](https://github.com/Dramane-dev/simplytodo-prod/blob/master/app-screens/board.jpg?raw=true)
 
 ## Link of deployed project :
 [Simply Todo](https://dramane.dev/simplytodo)
