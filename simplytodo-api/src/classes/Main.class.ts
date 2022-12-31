@@ -20,10 +20,30 @@ export default class Main {
             next();
         });
 
-        this._router.use("/api", healthcheckRoutes);
-        this._router.use("/api", authRoutes);
-        this._router.use("/api", projectRoutes);
-        this._router.use("/api", taskRoutes);
+        this._router.use(
+            process.env.NODE_ENV !== 'production'
+            ? "/api"
+            : "/simplytodo/api", 
+            healthcheckRoutes
+        );
+        this._router.use(
+            process.env.NODE_ENV !== 'production'
+            ? "/api"
+            : "/simplytodo/api", 
+            authRoutes
+        );
+        this._router.use(
+            process.env.NODE_ENV !== 'production'
+            ? "/api"
+            : "/simplytodo/api", 
+            projectRoutes
+        );
+        this._router.use(
+            process.env.NODE_ENV !== 'production'
+            ? "/api"
+            : "/simplytodo/api", 
+            taskRoutes
+        );
     }
 
     startServer(): void {
