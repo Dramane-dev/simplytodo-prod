@@ -57,20 +57,17 @@ export class DashboardComponent implements OnInit {
             .getAllProjects(String(this.user.userId), this.user.accessToken)
             .then((res) => {
                 const { message, result } = res.data;
+                this.tasks = [];
+                this.doing = [];
+                this.done = [];
+
                 if (result.length > 0) {
-                    this.tasks = [];
-                    this.doing = [];
-                    this.done = [];
                     this.projects = result;
-                    this.projectId = this.projects[0].projectId as number;
-                    this.projectName = this.projects[0].name;
-                    this.projectDescription = this.projects[0].description;
+                    // this.projectId = this.projects[this.projects.length - 1].projectId as number;
+                    // this.projectName = this.projects[this.projects.length - 1].name;
+                    // this.projectDescription = this.projects[this.projects.length - 1].description;
                     this.userHasProjects = true;
                 } else {
-                    this.tasks = [];
-                    this.doing = [];
-                    this.done = [];
-                    this.projects = [];
                     this.projects = [];
                     this.projectId = 0;
                     this.projectName = '';
@@ -171,22 +168,16 @@ export class DashboardComponent implements OnInit {
         this.doing = [];
         this.done = [];
 
-        // if (actualProject.tasks?.length === 0) {
-        //     this.tasks = [];
-        //     this.doing = [];
-        //     this.done = [];
-        // }
-
         actualProject.tasks?.map((task: ITask) => {
             switch (true) {
                 case task.status === 'todo':
-                    this.tasks = [task];
+                    this.tasks = [...this.tasks, task];
                     break;
                 case task.status === 'doing':
-                    this.doing = [task];
+                    this.doing = [...this.doing, task];
                     break;
                 case task.status === 'done':
-                    this.done = [task];
+                    this.done = [...this.done, task];
                     break;
                 default:
                     break;

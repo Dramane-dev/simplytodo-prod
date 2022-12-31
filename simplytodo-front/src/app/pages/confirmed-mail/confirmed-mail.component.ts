@@ -5,6 +5,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { TUser } from 'src/app/types/TUser';
 import { StorageService } from 'src/app/services/storage/storage.service';
+import { NotifierService } from 'angular-notifier';
 
 @Component({
     selector: 'app-confirmed-mail',
@@ -26,7 +27,8 @@ export class ConfirmedMailComponent implements OnInit, OnDestroy {
         private _router: Router,
         private _activatedRoute: ActivatedRoute,
         private _authService: AuthService,
-        private _storageService: StorageService
+        private _storageService: StorageService,
+        private _notificationService: NotifierService
     ) {}
 
     ngOnInit(): void {
@@ -47,7 +49,10 @@ export class ConfirmedMailComponent implements OnInit, OnDestroy {
                 .then((res) => {
                     if (res) {
                         this.updateUserInfosFromLocalStorage('userInformations');
-                        this.navigateTo('signin');
+                        this._notificationService.notify("success", "Votre code est valide ! Vous pouvez vous connectez.");
+                        setTimeout(() => {
+                            this.navigateTo('signin');
+                        }, 2500);
                     }
                 })
                 .catch((error) => {

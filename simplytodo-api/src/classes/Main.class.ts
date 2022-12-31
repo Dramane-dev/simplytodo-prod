@@ -5,7 +5,7 @@ import { connectionToDatabase } from "../../db/connection.db";
 import { authRoutes } from "../routes/auth/auth.route";
 import { projectRoutes } from "../routes/project/project.route";
 import cors from "cors";
-import { taskRoute } from "../routes/task/task.route";
+import { taskRoutes } from "../routes/task/task.route";
 import { healthcheckRoutes } from "../routes/healthcheck/healthcheck";
 export default class Main {
     constructor(private _router: Express, private _port: number) {}
@@ -20,10 +20,30 @@ export default class Main {
             next();
         });
 
-        this._router.use("/simplytodo/api", healthcheckRoutes);
-        this._router.use("/simplytodo/api", authRoutes);
-        this._router.use("/simplytodo/api", projectRoutes);
-        this._router.use("/simplytodo/api", taskRoute);
+        this._router.use(
+            process.env.NODE_ENV !== 'production'
+            ? "/api"
+            : "/simplytodo/api", 
+            healthcheckRoutes
+        );
+        this._router.use(
+            process.env.NODE_ENV !== 'production'
+            ? "/api"
+            : "/simplytodo/api", 
+            authRoutes
+        );
+        this._router.use(
+            process.env.NODE_ENV !== 'production'
+            ? "/api"
+            : "/simplytodo/api", 
+            projectRoutes
+        );
+        this._router.use(
+            process.env.NODE_ENV !== 'production'
+            ? "/api"
+            : "/simplytodo/api", 
+            taskRoutes
+        );
     }
 
     startServer(): void {

@@ -29,6 +29,24 @@ export class TaskService {
         });
     }
 
+    getByProjectId(projectId: string, token: string): Promise<ITask[]> {
+        return new Promise(async (resolve, reject) => {
+            axios.get(`/project/task/${projectId}`, {
+                headers: await this._addTokenToHeaderService.addToken(token),
+            })
+            .then((result) => {
+                const { tasks } = result.data;
+                resolve(tasks);
+            })
+            .catch((error) => {
+                const { data } = error.response;
+                reject({
+                    message: data.message,
+                });
+            });
+        })
+    }
+
     update(task: ITask, projectId: number, token: string): Promise<string> {
         return new Promise(async (resolve, reject) => {
             axios
