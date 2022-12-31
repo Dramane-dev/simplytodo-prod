@@ -5,7 +5,7 @@ import { connectionToDatabase } from "../../db/connection.db";
 import { authRoutes } from "../routes/auth/auth.route";
 import { projectRoutes } from "../routes/project/project.route";
 import cors from "cors";
-import { taskRoute } from "../routes/task/task.route";
+import { taskRoutes } from "../routes/task/task.route";
 import { healthcheckRoutes } from "../routes/healthcheck/healthcheck";
 export default class Main {
     constructor(private _router: Express, private _port: number) {}
@@ -23,7 +23,7 @@ export default class Main {
         this._router.use("/api", healthcheckRoutes);
         this._router.use("/api", authRoutes);
         this._router.use("/api", projectRoutes);
-        this._router.use("/api", taskRoute);
+        this._router.use("/api", taskRoutes);
     }
 
     startServer(): void {

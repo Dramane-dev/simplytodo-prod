@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { Project } from "../../models/Project.model";
 
 export const getAllProjectsController = (req: Request, res: Response) => {
-    let userId: string = req.params.id;
+    let userId: string = req.params.userId;
 
     Project.findAll({
         include: ["tasks"],
