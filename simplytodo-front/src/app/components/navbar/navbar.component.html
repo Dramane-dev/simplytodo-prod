@@ -1,8 +1,6 @@
 <header class="navbar-container">
     <ng-container *ngIf="handsetScreen; else notHandsetScreen">
         <div class="navbar-handset-screen">
-            <!-- <mat-icon class="icon" aria-hidden="false" aria-label="Login button">login</mat-icon>
-            <mat-icon class="icon" aria-hidden="false" aria-label="Logout button">logout</mat-icon> -->
             <mat-icon class="icon" aria-hidden="false" aria-label="Navbar menu" (click)="menuIsShow ? hideMenu() : showMenu()">menu</mat-icon>
         </div>
     </ng-container>
