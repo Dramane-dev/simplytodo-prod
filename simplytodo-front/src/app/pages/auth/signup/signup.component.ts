@@ -8,6 +8,7 @@ import { StorageService } from 'src/app/services/storage/storage.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Subscription } from 'rxjs';
 import { NotifierService } from 'angular-notifier';
+import { SIGNUP_FAILED_NOTIFICATION_MESSAGE } from 'src/constants/constants';
 
 @Component({
     selector: 'app-signup',
@@ -79,17 +80,17 @@ export class SignupComponent implements OnInit, OnDestroy {
             this._authService
                 .signup(lastname.value, firstname.value, email.value, password.value, confirmedPassword.value)
                 .then((res) => {
-                    let user: TUser = res;
+                    let user: TUser = res.user;
                     user.accessToken = "";
                     this.saveUserDatasInStorage('userInformations', user);
-                    this._notificationService.notify("success", "Votre compte a bien été créer ! Un email vous a été envoyé.");
+                    this._notificationService.notify("success", res.message);
                     setTimeout(() => {
                         this.navigateTo('confirmed-mail/' + user.userId);
                     }, 2500);
                 })
                 .catch((error) => {
                     if (error.includes('email must be unique')) {
-                        this._notificationService.notify("error", "Un compte ayant cette adresse mail existe déjà !");
+                        this._notificationService.notify("error", SIGNUP_FAILED_NOTIFICATION_MESSAGE);
                     }
                 });
         } else {

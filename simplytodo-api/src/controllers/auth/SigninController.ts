@@ -4,6 +4,7 @@ import { verifyPassword } from "../../functions/auth/verifyPassword";
 import { generateToken } from "../../functions/auth/generateToken";
 import config from "../../../config/defaults";
 import { userIsAuthenticated } from "../../functions/auth/userIsAuthenticated";
+import { createUserResponse } from "../../../utils/createUserResponse";
 
 export const SigninController = (req: Request, res: Response) => {
     User.findOne({
@@ -39,11 +40,7 @@ export const SigninController = (req: Request, res: Response) => {
                         return res.status(200).send({
                             message: "User connected successfuly ✅!",
                             user: {
-                                userId: usr?.getDataValue("userId"),
-                                lastname: usr?.getDataValue("lastname"),
-                                firstname: usr?.getDataValue("firstname"),
-                                email: usr?.getDataValue("email"),
-                                isAuthenticated: usr?.getDataValue("isAuthenticated"),
+                                ...createUserResponse(usr),
                                 accessToken: token,
                                 refreshToken: refreshToken,
                             },

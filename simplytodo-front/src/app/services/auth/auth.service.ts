@@ -5,6 +5,13 @@ import { TSigninResponse } from 'src/app/types/TSigninResponse';
 import { TUser } from 'src/app/types/TUser';
 import { TUserCredential } from 'src/app/types/TUserCredential';
 import { environment } from 'src/environments/environment';
+import { 
+    SIGNUP_SUCCESS_MESSAGE,
+    SIGNUP_SUCCESS_NOTIFICATION_MESSAGE,
+    SIGNIN_SUCCESS_MESSAGE, 
+    SIGNIN_SUCCESS_NOTIFICATION_MESSAGE 
+} from 'src/constants/constants';
+
 @Injectable({
     providedIn: 'root',
 })
@@ -17,7 +24,7 @@ export class AuthService {
         email: string,
         password: string,
         confirmedPassword: string
-    ): Promise<TUser> {
+    ): Promise<TSigninResponse> {
         return new Promise((resolve, reject) => {
             let user: User = {
                 lastname,
@@ -29,6 +36,14 @@ export class AuthService {
             axios
                 .post(environment.globalBackendUrl + 'signup', user)
                 .then((res) => {
+                    const { message } = res.data;
+
+                    if (message.includes(SIGNUP_SUCCESS_MESSAGE)) {
+                        res.data.message = SIGNUP_SUCCESS_NOTIFICATION_MESSAGE;
+                        resolve(res.data);
+                    } else {
+                        reject(message);
+                    }
                     resolve(res.data.user);
                 })
                 .catch((error) => {
@@ -60,9 +75,12 @@ export class AuthService {
                 .post(environment.globalBackendUrl + 'signin', userCredentials)
                 .then((res) => {
                     const { message } = res.data;
-                    if (message.includes('User connected successfuly')) {
-                        res.data.message = "Connexion réussi ✅ !"
+
+                    if (message.includes(SIGNIN_SUCCESS_MESSAGE)) {
+                        res.data.message = SIGNIN_SUCCESS_NOTIFICATION_MESSAGE;
                         resolve(res.data);
+                    } else {
+                        reject(message);
                     }
                 })
                 .catch((error) => {

@@ -7,6 +7,7 @@ import { sendMailVerificationCode } from "../../functions/auth/sendMailVerificat
 import { generateMailVerificationCode } from "../../functions/auth/generateMailVerificationCode";
 import { generateId } from "../../functions/generateId";
 import { idKeys } from "../../exports/idKeys";
+import { createUserResponse } from "../../../utils/createUserResponse";
 
 export const SignupController = (req: Request, res: Response) => {
     let isSamePassword: boolean = passwordConfirmed(req.body.password, req.body.confirmedPassword);
@@ -21,17 +22,7 @@ export const SignupController = (req: Request, res: Response) => {
             mailVerificationCode: generateMailVerificationCode(),
         })
             .then((result) => {
-                let user: IUser = {
-                    userId: result.getDataValue("userId"),
-                    lastname: result.getDataValue("lastname"),
-                    firstname: result.getDataValue("firstname"),
-                    email: result.getDataValue("email"),
-                    password: "",
-                    bio: result.getDataValue("bio"),
-                    mailVerificationCode: result.getDataValue("mailVerificationCode"),
-                    mailConfirmed: result.getDataValue("mailConfirmed"),
-                    isAuthenticated: result.getDataValue("isAuthenticated"),
-                };
+                let user: IUser = createUserResponse(result);
 
                 sendMailVerificationCode(user)
                     .then((result) => {

@@ -80,22 +80,37 @@ export class SigninComponent implements OnInit, OnDestroy {
                      let actualUser: TUser = JSON.parse(
                          await this._storageService.getFromLocalStorage('userInformations')
                      );
-                     actualUser.userId = userId;
-                     actualUser.lastname = lastname;
-                     actualUser.firstname = firstname;
-                     actualUser.email = res.user.email;
-                     actualUser.accessToken = accessToken;
-                     actualUser.isAuthenticated = isAuthenticated;
-                     let actualUserStringified: string = JSON.stringify(actualUser);
+
+                     if (actualUser !== null) {
+                         actualUser.userId = userId;
+                         actualUser.lastname = lastname;
+                         actualUser.firstname = firstname;
+                         actualUser.email = res.user.email;
+                         actualUser.accessToken = accessToken;
+                         actualUser.isAuthenticated = isAuthenticated;
+
+                         let actualUserStringified: string = JSON.stringify(actualUser);
                      
-                     this._storageService
-                         .updateFromLocalStorage('userInformations', actualUserStringified)
-                         .then(() => {
-                             this._notificationService.notify("success", res.message);
-                             setTimeout(() => {
-                                this.navigateTo('dashboard');
-                             }, 2500);
-                         });
+                         this._storageService
+                             .updateFromLocalStorage('userInformations', actualUserStringified)
+                             .then(() => {
+                                 this._notificationService.notify("success", res.message);
+                                 setTimeout(() => {
+                                    this.navigateTo('dashboard');
+                                 }, 2500);
+                             });
+                     } else {
+                        actualUser = res.user;
+                        let actualUserStringified: string = JSON.stringify(actualUser);
+                        
+                        this._storageService.saveFromLocalStorage('userInformations', actualUserStringified)
+                        .then(() => {
+                            this._notificationService.notify("success", res.message);
+                            setTimeout(() => {
+                               this.navigateTo('dashboard');
+                            }, 2500);
+                        });
+                     }
                  })
                  .catch((error) => {
                      this._notificationService.notify("error", error);

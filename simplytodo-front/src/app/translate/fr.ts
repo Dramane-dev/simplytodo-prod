@@ -156,6 +156,7 @@ export const fr: any = {
                 "UserFirstName": "Prénom",
                 "Email": "Email",
                 "Password": "Mot de passe",
+                "ConfirmedPassword": "Confirmer votre mot de passe",
                 "Bio": "Biographie"
             },
             "Buttons": {
