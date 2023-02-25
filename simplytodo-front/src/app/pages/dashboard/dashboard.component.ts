@@ -11,7 +11,6 @@ import { ITask } from '../../interfaces/ITask';
 import { ITaskPopup } from 'src/app/interfaces/ITaskPopup';
 import { TaskService } from 'src/app/services/task/task.service';
 import { NotifierService } from 'angular-notifier';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
     selector: 'app-dashboard',
@@ -28,6 +27,7 @@ export class DashboardComponent implements OnInit {
     public projectDescription: string = '';
     public isDeletedButton: boolean = false;
     public userHasProjects: boolean = false;
+    public userHaveSelectedProject: boolean = false;
     public user: TUser = {} as TUser;
     @Input() grab: boolean = true;
     @Input() grabbing: boolean = false;
@@ -50,6 +50,7 @@ export class DashboardComponent implements OnInit {
             .then(() => {
                 this.getAllProjects();
             });
+        console.log(this.userHaveSelectedProject);
     }
 
     getAllProjects() {
@@ -153,6 +154,7 @@ export class DashboardComponent implements OnInit {
 
     changeProject(project: IProject): void {
         let actualProject: IProject = this.projectsFiltred(project.projectId as number)[0];
+        this.userHaveSelectedProject = true;
         this.projectId = actualProject.projectId as number;
         this.projectName = project.name;
         this.projectDescription = project.description;

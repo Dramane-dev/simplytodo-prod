@@ -135,6 +135,10 @@ export const fr: any = {
                 "Update": "Mettre à jour le projet",
                 "Delete": "Supprimer le projet"
             },
+            "NoProjectSelected": {
+                "Title": "Aucun projet sélectionné !",
+                "SubTitle": "Veuillez en sélectionner un dans la liste à gauche."
+            },
             "NoProjects": {
                 "Title": "Vous n'avez pas encore créer de projet.",
                 "Buttons": {
