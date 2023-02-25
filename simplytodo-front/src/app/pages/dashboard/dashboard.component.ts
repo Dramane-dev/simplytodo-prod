@@ -50,7 +50,6 @@ export class DashboardComponent implements OnInit {
             .then(() => {
                 this.getAllProjects();
             });
-        console.log(this.userHaveSelectedProject);
     }
 
     getAllProjects() {
